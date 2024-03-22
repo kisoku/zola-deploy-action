@@ -96,6 +96,7 @@ main() {
 
         cd "${OUT_DIR}"
         #git init -b "${default_branch}"
+        git remote -v
         git branch -D "${remote_branch}" || true
         git checkout -t origin/gh-pages
         git branch -u origin/${default_branch}
