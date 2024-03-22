@@ -95,13 +95,18 @@ main() {
         echo "Pushing artifacts to ${TARGET_REPOSITORY}:$remote_branch"
 
         cd "${OUT_DIR}"
-        git init -b "${default_branch}"
+        #git init -b "${default_branch}"
+        git branch -D "${remote_branch}" || true
+        git checkout -t origin/gh-pages
+        git branch -u origin/${default_branch}
+        git pull
         git config user.name "GitHub Actions"
         git config user.email "github-actions-bot@users.noreply.${GITHUB_HOSTNAME}"
         git add .
 
         git commit -m "Deploy ${TARGET_REPOSITORY} to ${TARGET_REPOSITORY}:$remote_branch"
         git push --force "${remote_repo}" "${default_branch}":"${remote_branch}"
+        git checkout ${default_branch}
 
         echo "Deploy complete"
     fi
