@@ -81,6 +81,7 @@ jobs:
 ```
 
 ## Environment Variables
+* `DEFAULT_BRANCH`: The default git branch of your repo, defaults to `master`
 * `PAGES_BRANCH`: The git branch of your repo to which the built static files will be pushed. Default is `gh-pages` branch
 * `REPOSITORY`: The target repository to push to. Default is `GITHUB_REPOSITORY`(current repository). Set this variable if you want to deploy to other repo.
 * `BUILD_DIR`: The path from the root of the repo where we should run the `zola build` command. Default is `.` (current directory)

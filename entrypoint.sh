@@ -7,6 +7,10 @@ if [[ -n "$TOKEN" ]]; then
     GITHUB_TOKEN=$TOKEN
 fi
 
+if [[ -z "$DEFAULT_BRANCH"]]; then
+    DEFAULT_BRANCH="master"
+fi
+
 if [[ -z "$PAGES_BRANCH" ]]; then
     PAGES_BRANCH="gh-pages"
 fi
@@ -71,6 +75,7 @@ main() {
 
     version=$(zola --version)
     remote_repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@${GITHUB_HOSTNAME}/${TARGET_REPOSITORY}.git"
+    default_branch=$DEFAULT_BRANCH
     remote_branch=$PAGES_BRANCH
 
     echo "Using $version"
@@ -96,7 +101,7 @@ main() {
         git add .
 
         git commit -m "Deploy ${TARGET_REPOSITORY} to ${TARGET_REPOSITORY}:$remote_branch"
-        git push --force "${remote_repo}" master:"${remote_branch}"
+        git push --force "${remote_repo}" "${default_branch}":"${remote_branch}"
 
         echo "Deploy complete"
     fi
